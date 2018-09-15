@@ -2,8 +2,6 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import Router from "./router";
 
-import "./App.css";
-
 export default class App extends React.Component {
   public render() {
     return (
