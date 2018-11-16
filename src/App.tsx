@@ -1,17 +1,32 @@
-import * as React from "react";
-import { Link } from "react-router-dom";
-import Router from "./router";
+import * as React from 'react'
 
-export default class App extends React.Component {
-  public render() {
-    return (
-      <Router>
-        <nav>
-          <Link to="/">主页</Link>
+const { useState, useEffect, Suspense, lazy } = React
 
-          <Link to="/about">关于</Link>
-        </nav>
-      </Router>
-    );
-  }
+const Other = lazy(() => import('./OtherComponent'))
+
+export default function App() {
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    document.title = `Hello Hooks ${count}`
+    return () => {
+      console.log(`over ${count}`)
+    }
+  })
+
+  return (
+    <div>
+      app{count}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Other />
+      </Suspense>
+      <button
+        onClick={() => {
+          setCount(count + 1)
+        }}
+      >
+        add
+      </button>
+    </div>
+  )
 }
